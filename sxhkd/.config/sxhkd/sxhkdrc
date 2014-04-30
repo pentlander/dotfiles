@@ -2,56 +2,72 @@
 # bspwm hotkeys
 #
 
+# Logout
 super + alt + Escape
 	bspc quit
 
+# Close window
 super + w
 	bspc window -c
 
+# Toggle monocole mode
 super + t
 	bspc desktop -l next
 
+# Balance windows
 super + b
 	bspc desktop -B
 
+# Set window to floating/fullscreen/pseudo-tiled mode
 super + {s,f,p}
 	bspc window -t {floating,fullscreen,pseudo_tiled}
 
+# Swtich to last used window/desktop
 super + {grave,Tab}
 	bspc {window,desktop} -f last
 
+# Swap positions with the last used window
 super + apostrophe
 	bspc window -s last
+
 
 super + {o,i}
 	bspc control --record-history off; \
 	bspc window {older,newer} -f; \
 	bspc control --record-history on
 
+# Move window to last preselection
 super + y
 	bspc window -w last.manual
 
+# Swap positions with the largest window
 super + m
 	bspc window -s biggest
 
+# Focus/move window
 super + {_,shift + }{h,j,k,l}
 	bspc window -{f,s} {left,down,up,right}
 
+# Select next/previous window in the tree
 super + {_,shift + }c
 	bspc window -f {next,prev}
 
 super + {comma,period}
 	bspc desktop -C {backward,forward}
 
+# Focus/move to previous desktop
 super + {_,shift + }bracketleft
 	bspc {desktop -f prev,window -d prev -f}
 
+# Focus/move to next desktop
 super + {_,shift + }bracketright
 	bspc {desktop -f next,window -d next -f}
 
+# Preselect part of a window
 super + ctrl + {h,j,k,l}
 	bspc window -p {left,down,up,right}
 
+# Cancel preselection
 super + ctrl + {_,shift + }space
 	bspc {window -p cancel,desktop -c}
 
@@ -61,9 +77,11 @@ super + alt + {h,j,k,l}
 super + alt + shift + {h,j,k,l}
 	bspc window -e {right -10,up +10,down -10,left +10}
 
+# Set preselection size ratio 
 super + ctrl + {1-9}
 	bspc window -r 0.{1-9}
 
+# Focus desktop/move to desktop X
 super + {_,shift + }{1-9,0}
 	bspc {desktop -f,window -d} ^{1-9,10}
 
@@ -87,7 +105,7 @@ super + Return
 	urxvt
 
 super + space
-	dmenu_run
+	dmenu-launch
 
 XF86AudioRaiseVolume
 	volume increase
