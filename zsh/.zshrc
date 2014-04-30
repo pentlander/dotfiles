@@ -10,6 +10,8 @@ ZSH_THEME="robbyrussell"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias lock="dm-tool lock"
+alias shutdown="sudo shutdown now"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
