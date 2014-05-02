@@ -10,7 +10,7 @@ SCREEN_WIDTH = check_output(['sres', '-W']).decode('utf-8')
 class PanelInput():
 	"""docstring for PanelInput"""
 	def __init__(self, cmd, align='left', expr=None, action=None):
-		super(PanelInput, self).__init__()
+		super().__init__()
 		self.cmd = cmd
 		self.align = align
 		self.expr = expr
@@ -69,34 +69,44 @@ class PanelInput():
 
 class PanelBar():
 	"""docstring for Panel"""
-	def __init__(self, height=24, font='sans-serif', font_size=11):
-		super(PanelBar, self).__init__()
+	def __init__(self, pos=(0,0), height=24, font='sans-serif', font_size=11):
+		super().__init__()
+		self.pos = pos
 		self.font = font
 		self.font_size = font_size
 		self.height = height
 		self.subprocess = None
 		
-	def run(self):
+	def run(self, slave=0):
 		font = self.font + ':pixelsize=' + str(self.font_size)
 		cmd = ['dzen2', '-p', '-fg', colors.FOREGROUND, '-bg', colors.BACKGROUND,\
-			'-h', str(self.height), '-y', "30", '-w', SCREEN_WIDTH,\
+			'-w', SCREEN_WIDTH, '-h', str(self.height),\
+			'-x',str(self.pos[0]), '-y', str(self.pos[1]),\
 			'-ta', 'l',	'-title-name', 'panel',\
 			'-fn', font]
+		if slave:
+			cmd.append(['-l', str(slave)])
 		self.subprocess = Popen(cmd, stdin=PIPE, bufsize=1)
 
 	def update(self, line):
 		stdin = self.subprocess.stdin
 		stdin.write(line)
 		stdin.flush()
-		
+
+class Widget(PanelBar):
+	"""docstring for Widget"""
+	def __init__(self, height=24, font='sans-serif', font_size=11):
+		super().__init__(height, font, font_size)
+		self.y_pos = y_pos
+
 date_input = PanelInput(['date'], align='right')
-battery_input = PanelInput(['acpi'], align='left', expr="\w \d: ([A-Z])[a-z]+\, (\d+%), 0(\d+:\d+)", action='echo hi')
-panel = PanelBar()
+#battery_input = PanelInput(['acpi'], align='left', expr="\w \d: ([A-Z])[a-z]+\, (\d+%), 0(\d+:\d+)", action='echo hi')
+panel = PanelBar(pos=(0, 30))
 panel.run()
 
 inputs = []
 inputs.append(date_input)
-inputs.append(battery_input)
+#inputs.append(battery_input)
 while True:
 	output = []
 	align_left = align_right = 10
