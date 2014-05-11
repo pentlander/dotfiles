@@ -2,7 +2,6 @@ from subprocess import Popen, PIPE, check_output
 from threading import Thread
 from time import sleep
 import re
-import sys
 import colors
 
 SCREEN_WIDTH = check_output(['sres', '-W']).decode('utf-8').strip()
@@ -10,44 +9,54 @@ SCREEN_WIDTH = check_output(['sres', '-W']).decode('utf-8').strip()
 
 class PanelInput():
     """docstring for PanelInput"""
-    def __init__(self, cmd, align='left', expr=None, action=None):
+    def __init__(self, cmd, align='left', font='sans-serif', font_size=11,
+                 expr=None, action=None):
         super().__init__()
         self.cmd = cmd
         self.align = align
+        self.font = font
+        self.font_size = font_size
         self.expr = expr
         self.pos = 0
         self.width = 0
         self.action = action
 
-    def update(self, font, font_size):
+    def update(self):
         line = check_output(self.cmd).decode('utf-8')
         if (self.expr):
             line = self.format_text(line)
-        self.width = int(check_output(['txtw', '-f', font, '-s', str(font_size), line]).decode('utf-8'))
-        line = self.format_line(line)
+        self.width = int(check_output(['txtw', '-f', self.font, '-s',
+                                      str(self.font_size), line]).decode('utf-8'))
+        pos = self.get_position()
+
+        line = self.format_line(line, pos)
         return line
 
-    def format_line(self, line):
+    def get_position(self):
         position = self.pos
-        click = ['', '']
         if (self.align == 'right'):
             position = int(SCREEN_WIDTH) - self.width - position
+        return position
+
+    def format_line(self, line, pos):
+        foreground = ''.join(['^fg(', colors.STATUS_FG, ')'])
+        background = ''.join(['^bg(', colors.STATUS_BG, ')'])
+        position = ''.join(['^pa(', str(pos), ')'])
+
+        click = ['', '']
         if (self.action):
             click[0] = '^ca(1, ' + self.action + ')'
             click[1] = '^ca()'
 
-        line = '^fg(' + colors.STATUS_FG + ')^bg(' +\
-            colors.STATUS_BG + ')^pa(' + str(position) + ')' +\
-            click[0] + line + click[1]
-
-        #print(line)
-        return line.strip()
+        line = ''.join([foreground, background, position, click[0],
+                       line.strip(), click[1]])
+        print(line)
+        return line
 
     def format_text(self, line):
         regex = re.compile(self.expr)
         output = regex.search(line)
         return ' '.join(output.groups())
-
 
     def bind(self, output_pipe):
         def f():
@@ -57,7 +66,7 @@ class PanelInput():
                 for line in iter(input_pipe.readline, b''):
                     line = self.format_line(line)
                     if (line):
-                        output_pipe.write(line) # no flush unless newline present
+                        output_pipe.write(line)
                         output_pipe.flush()
             finally:
                 try:
@@ -69,8 +78,37 @@ class PanelInput():
         t.start()
 
 
+class FormatOutput():
+    def __init__(self, regex=None):
+        super().__init__()
+        self.regex = regex
+
+    def format_line(self, line):
+        foreground = ''.join(['^fg(', colors.STATUS_FG, ')'])
+        background = ''.join(['^bg(', colors.STATUS_BG, ')'])
+        pos = self.pos
+        if (self.align == 'right'):
+            pos = int(SCREEN_WIDTH) - self.width - pos
+        position = ''.join(['^pa(', str(pos), ')'])
+
+        click = ['', '']
+        if (self.action):
+            click[0] = '^ca(1, ' + self.action + ')'
+            click[1] = '^ca()'
+
+        line = ''.join([foreground, background, position, click[0],
+                       line.strip(), click[1]])
+        print(line)
+        return line
+
+    def apply_regex(self, line):
+        regex = re.compile(self.regex)
+        output = regex.search(line)
+        return ' '.join(output.groups())
+
+
 class Widget():
-    """docstring for Panel"""
+    """Class to build a generic dzen Widget"""
     def __init__(self, pos=(0, 0), height=24, font='sans-serif', font_size=11):
         super().__init__()
         self.pos = pos
@@ -105,30 +143,38 @@ class Widget():
 class PanelBar(Widget):
     """docstring for Widget"""
     def __init__(self, height=24, font='sans-serif', font_size=11):
-        super().__init__(height=height, font=font, font_size=font_size)
+        super().__init__(pos=(0, 30), height=height, font=font, font_size=font_size)
 
-date_input = PanelInput(['date'], align='right')
-#battery_input = PanelInput(['acpi'], align='left', expr="\w \d: ([A-Z])[a-z]+\, (\d+%), 0(\d+:\d+)", action='echo hi')
-panel = Widget(pos=(0, 30))
-panel.run()
+    def run_panel(self, panel_inputs):
+        self.run()
+        while True:
+            output = []
+            align_left = align_right = 10
+            for panel_input in panel_inputs:
+                if (panel_input.align == 'left'):
+                    panel_input.pos = align_left
+                    output.append(panel_input.update())
+                    align_left += panel_input.width
+                elif (panel_input.align == 'right'):
+                    panel_input.pos = align_right
+                    output.append(panel_input.update())
+                    align_right += panel_input.width + 10
+            output.append('\n')
+            line = ' '.join(output)
+            line = bytes(line, 'utf-8')
+            self.update(line)
+            sleep(1)
 
-inputs = []
-inputs.append(date_input)
-#inputs.append(battery_input)
-while True:
-    output = []
-    align_left = align_right = 10
-    for panel_input in inputs:
-        if (panel_input.align == 'left'):
-            panel_input.pos = align_left
-            output.append(panel_input.update(panel.font, panel.font_size))
-            align_left += panel_input.width
-        elif (panel_input.align == 'right'):
-            panel_input.pos = align_right
-            output.append(panel_input.update(panel.font, panel.font_size))
-            align_right += panel_input.width + 10
-    output.append('\n')
-    line = ' '.join(output)
-    line = bytes(line, 'utf-8')
-    panel.update(line)
-    sleep(1)
+
+def main():
+    inputs = []
+    date_input = PanelInput(['date'], align='right')
+    inputs.append(date_input)
+    mpc_input = PanelInput(['ncmpcpp', '--now-playing'], align='left', action='echo pressed')
+    inputs.append(mpc_input)
+
+    panel = PanelBar()
+    panel.run_panel(inputs)
+
+if __name__ == '__main__':
+    main()
