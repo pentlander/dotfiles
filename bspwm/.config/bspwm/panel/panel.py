@@ -5,31 +5,28 @@ import re
 import colors
 
 SCREEN_WIDTH = check_output(['sres', '-W']).decode('utf-8').strip()
+FONT = 'sans-serif'
+FONT_SIZE = 11
 
 
 class PanelInput():
     """docstring for PanelInput"""
-    def __init__(self, cmd, align='left', font='sans-serif', font_size=11,
+    def __init__(self, cmd, align='left', 
                  expr=None, action=None):
         super().__init__()
         self.cmd = cmd
-        self.align = align
-        self.font = font
-        self.font_size = font_size
-        self.expr = expr
         self.pos = 0
+        self.align = align
         self.width = 0
-        self.action = action
 
-    def update(self):
-        line = check_output(self.cmd).decode('utf-8')
-        if (self.expr):
-            line = self.format_text(line)
-        self.width = int(check_output(['txtw', '-f', self.font, '-s',
-                                      str(self.font_size), line]).decode('utf-8'))
-        pos = self.get_position()
+    def update(self, format_line=None):
+        line = check_output(self.cmd).decode('utf-8').strip()
+        if format_line is None:
+            format_line = self.format_line
+        line = format_line(line)
 
-        line = self.format_line(line, pos)
+        position = self.get_position()
+        line = '^pa({}){}'.format(position, line)
         return line
 
     def get_position(self):
@@ -38,25 +35,14 @@ class PanelInput():
             position = int(SCREEN_WIDTH) - self.width - position
         return position
 
-    def format_line(self, line, pos):
-        foreground = ''.join(['^fg(', colors.STATUS_FG, ')'])
-        background = ''.join(['^bg(', colors.STATUS_BG, ')'])
-        position = ''.join(['^pa(', str(pos), ')'])
+    def set_width(self, line):
+        self.width = int(check_output(['txtw', '-f', FONT, '-s',
+                         str(FONT_SIZE), line]).decode('utf-8'))
 
-        click = ['', '']
-        if (self.action):
-            click[0] = '^ca(1, ' + self.action + ')'
-            click[1] = '^ca()'
-
-        line = ''.join([foreground, background, position, click[0],
-                       line.strip(), click[1]])
-        print(line)
-        return line
-
-    def format_text(self, line):
-        regex = re.compile(self.expr)
-        output = regex.search(line)
-        return ' '.join(output.groups())
+    def format_line(self, line):
+        formatter = FormatOutput()
+        self.set_width(line)
+        return formatter.format_line(line, foreground=colors.FOREGROUND, background=colors.BACKGROUND)
 
     def bind(self, output_pipe):
         def f():
@@ -74,31 +60,23 @@ class PanelInput():
                 finally:
                     input_pipe.close()
         t = Thread(target=f)
-        t.daemon = True # die if the program exits
+        t.daemon = True
         t.start()
 
 
 class FormatOutput():
-    def __init__(self, regex=None):
+    def __init__(self, font='sans-serif', font_size=11, align='left'):
         super().__init__()
-        self.regex = regex
+        self.font = font
+        self.font_size = font_size
 
-    def format_line(self, line):
-        foreground = ''.join(['^fg(', colors.STATUS_FG, ')'])
-        background = ''.join(['^bg(', colors.STATUS_BG, ')'])
-        pos = self.pos
-        if (self.align == 'right'):
-            pos = int(SCREEN_WIDTH) - self.width - pos
-        position = ''.join(['^pa(', str(pos), ')'])
-
-        click = ['', '']
-        if (self.action):
-            click[0] = '^ca(1, ' + self.action + ')'
-            click[1] = '^ca()'
-
-        line = ''.join([foreground, background, position, click[0],
-                       line.strip(), click[1]])
-        print(line)
+    def format_line(self, line, foreground='', background='', action=''):
+        if action:
+            line = '^ca(1{}){}^ca()'.format(action, line)
+        if background:
+            line = '^bg({}){}'.format(background, line)
+        if foreground:
+            line = '^fg({}){}'.format(foreground, line)
         return line
 
     def apply_regex(self, line):
@@ -116,6 +94,9 @@ class Widget():
         self.font_size = font_size
         self.height = height
         self.subprocess = None
+        global FONT, FONT_SIZE
+        FONT = font
+        FONT_SIZE = font_size
 
     def run(self, slave=0):
         foreground = ['-fg', colors.FOREGROUND]
@@ -162,6 +143,7 @@ class PanelBar(Widget):
             output.append('\n')
             line = ' '.join(output)
             line = bytes(line, 'utf-8')
+            print(line)
             self.update(line)
             sleep(1)
 
@@ -170,8 +152,10 @@ def main():
     inputs = []
     date_input = PanelInput(['date'], align='right')
     inputs.append(date_input)
-    mpc_input = PanelInput(['ncmpcpp', '--now-playing'], align='left', action='echo pressed')
+    mpc_input = PanelInput(['ncmpcpp', '--now-playing'], action='echo pressed')
     inputs.append(mpc_input)
+    test_input = PanelInput(['echo', 'testing'])
+    inputs.append(test_input)
 
     panel = PanelBar()
     panel.run_panel(inputs)
