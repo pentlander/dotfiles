@@ -18,17 +18,17 @@ super + t
 super + b
 	bspc desktop -B
 
-# Set window to floating/fullscreen/pseudo-tiled mode
-super + {s,f,p}
-	bspc window -t {floating,fullscreen,pseudo_tiled}
+# Set window to fullscreen/pseudo-tiled mode
+super + {f,p}
+	bspc window -t {fullscreen,pseudo_tiled}
 
 # Swtich to last used window/desktop
 super + {grave,Tab}
 	bspc {window,desktop} -f last
 
 # Swap positions with the last used window
-super + apostrophe
-	bspc window -s last
+#super + apostrophe
+#	bspc window -s last
 
 
 super + {o,i}
@@ -63,12 +63,26 @@ super + {_,shift + }bracketleft
 super + {_,shift + }bracketright
 	bspc {desktop -f next,window -d next -f}
 
+# Focus/move to left monitor
+super + {_,shift + }semicolon
+	bspc {monitor -f left,window -m left && \
+		bspc window -f last}
+
+# Focus/move to right monitor
+super + {_,shift + }apostrophe
+	bspc {monitor -f right,window -m right && \
+		bspc window -f last}
+
+# Swap current desktop with last selected one
+super + s
+	bspc desktop -s last
+
 # Preselect part of a window
 super + ctrl + {h,j,k,l}
 	bspc window -p {left,down,up,right}
 
 # Cancel preselection
-super + ctrl + {_,shift + }space
+super + ctrl + {_,shift + }x
 	bspc {window -p cancel,desktop -c}
 
 super + alt + {h,j,k,l}
@@ -84,6 +98,9 @@ super + ctrl + {1-9}
 # Focus desktop/move to desktop X
 super + {_,shift + }{1-9,0}
 	bspc {desktop -f,window -d} ^{1-9,10}
+
+super + ctrl + alt + h
+	bspc control --toggle-visibility
 
 ~button1
 	bspc pointer -g focus
@@ -107,11 +124,23 @@ super + Return
 super + space
 	dmenu-launch
 
+super + ctrl + space
+	dswitcher
+
+XF86AudioPlay
+	ncmpcpp toggle
+
+XF86AudioPrev
+	ncmpcpp prev
+
+XF86AudioNext
+	ncmpcpp next
+
 XF86AudioRaiseVolume
-	volume increase
+	ncmpcpp volume +5
 
 XF86AudioLowerVolume
-	volume decrease
+	ncmpcpp volume -5
 
 
 # make sxhkd reload its configuration files:

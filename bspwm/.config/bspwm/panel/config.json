@@ -1,0 +1,14 @@
+[
+    {
+        "CmdArr": ["ncmpcpp", "--now-playing"],
+        "Opts": {"align": "l"}
+    },
+    {
+        "CmdArr": ["/home/alex/go/src/github.com/pentla/barms/cmds/bspwm-wkspace/bspwm-tri"],
+        "Opts": {"sub": "true", "align": "c"}
+    },
+    {
+        "CmdArr": ["date", "+%A, %B %d %l:%M"],
+        "Opts": {"align": "r", "mon": "1"}
+    }
+]

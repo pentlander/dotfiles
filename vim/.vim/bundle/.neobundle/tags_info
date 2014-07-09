@@ -1,0 +1,10 @@
+csapprox
+neobundle.vim
+neocomplcache
+unite.vim
+vim-airline
+vim-colorschemes
+vim-go
+vim-monokai
+vim-multiple-cursors
+vimproc.vim

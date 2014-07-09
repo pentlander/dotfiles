@@ -1,0 +1,6 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='/home/alex/.vim/bundle/vim-monokai'
+let g:netrw_dirhist_2='/home/alex/.vim/bundle/vim-monokai/colors'
+let g:netrw_dirhist_3='/home/alex/go/src/github.com/pentla/executil'
+let g:netrw_dirhist_4='/var/log/lightdm'
