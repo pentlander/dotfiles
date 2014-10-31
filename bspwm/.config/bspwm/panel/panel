@@ -1,2 +1,2 @@
-$HOME/go/src/github.com/pentla/barms/main/barms  $HOME/.config/bspwm/panel/config.json | bar-aint-recursive -F "#fff8f8f2" -B "#ff272822" -f "-xos4-terminus-medium-r-normal--16-160-72-72-c-80-iso8859-1,-misc-fixed-medium-r-normal--18-120-100-100-c-90-iso10646-1" -g 3580x20+10+5
+$HOME/go/src/github.com/pentla/barms/main/barms  $HOME/.config/bspwm/panel/config.yml | bar-aint-recursive -F "#fff8f8f2" -B "#ff272822" -f "-xos4-terminus-medium-r-normal--16-160-72-72-c-80-iso8859-1,-misc-fixed-medium-r-normal--18-120-100-100-c-90-iso10646-1" -g 3580x20+10+5
 

@@ -1,10 +1,15 @@
 csapprox
+goyo.vim
 neobundle.vim
 neocomplcache
+neosnippet
+neosnippet-snippets
 unite.vim
 vim-airline
 vim-colorschemes
 vim-go
+vim-javascript
+vim-jsx
 vim-monokai
 vim-multiple-cursors
 vimproc.vim

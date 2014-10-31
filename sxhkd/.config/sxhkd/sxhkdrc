@@ -128,19 +128,19 @@ super + ctrl + space
 	dswitcher
 
 XF86AudioPlay
-	ncmpcpp toggle
+	mpc toggle
 
 XF86AudioPrev
-	ncmpcpp prev
+	mpc prev
 
 XF86AudioNext
-	ncmpcpp next
+	mpc next
 
 XF86AudioRaiseVolume
-	ncmpcpp volume +5
+	mpc volume +5
 
 XF86AudioLowerVolume
-	ncmpcpp volume -5
+	mpc volume -5
 
 
 # make sxhkd reload its configuration files:
