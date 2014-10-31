@@ -31,7 +31,7 @@
 
 URxvt.scrollBar: false
 URxvt.depth: 32
-URxvt.background:	[95]1b1d1e
+URxvt.background:	[95]#1b1d1e
 URxvt*font:         xft:Terminess Powerline:pixelsize=10
 URxvt.perl-ext-common: ...,clipboard
 URxvt.keysym.M-c:   perl:clipboard:copy
