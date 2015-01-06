@@ -51,13 +51,13 @@ DISABLE_AUTO_UPDATE="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(archlinux autojump command-not-found cp extract git vi-mode web-search)
+plugins=(archlinux autojump command-not-found docker cp extract git vi-mode web-search)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH=$HOME/go/bin:$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.gem/ruby/2.1.0/bin:$HOME/go/bin:$HOME/bin:/usr/local/bin:$PATH
 export GOPATH=$HOME/go
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -77,4 +77,6 @@ export GOPATH=$HOME/go
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 feh --randomize --bg-scale ~/Wallpapers/* &>/dev/null
-bindkey -M viins 'jj' vi-cmd-mode
+bindkey -M vicmd 'k' up-line-or-search
+bindkey -M vicmd 'j' down-line-or-search
+export KEYTIMEOUT=1
