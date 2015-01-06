@@ -137,10 +137,10 @@ XF86AudioNext
 	mpc next
 
 XF86AudioRaiseVolume
-	mpc volume +5
+	pulseaudio-ctl up
 
 XF86AudioLowerVolume
-	mpc volume -5
+	pulseaudio-ctl down
 
 
 # make sxhkd reload its configuration files:
