@@ -76,7 +76,7 @@ export GOPATH=$HOME/go
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
-feh --randomize --bg-scale ~/Wallpapers/* &>/dev/null
+# feh --randomize --bg-scale ~/Wallpapers/* &>/dev/null
 bindkey -M vicmd 'k' up-line-or-search
 bindkey -M vicmd 'j' down-line-or-search
 export KEYTIMEOUT=1
