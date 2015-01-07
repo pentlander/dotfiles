@@ -37,5 +37,5 @@ URxvt.perl-ext-common: ...,clipboard
 URxvt.keysym.M-c:   perl:clipboard:copy
 URxvt.keysym.M-v:   perl:clipboard:paste
 URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
-*.fading:		80
-*.fadeColor:	[90]#272822
+*.fading:		30
+*.fadeColor:	[40]#272822
