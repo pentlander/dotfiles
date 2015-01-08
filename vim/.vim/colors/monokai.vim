@@ -33,7 +33,7 @@ endfun
 " ------------------------------
 " Editor settings
 " ------------------------------
-call <sid>hi("Normal", s:cfg, s:cbg, "none")
+call <sid>hi("Normal", s:cfg, "none", "none")
 call <sid>hi("Cursor", s:cbg, s:cfg, "none")
 call <sid>hi("CursorLine", "none", "237", "none")
 call <sid>hi("LineNr", "102", "237", "none")
@@ -42,6 +42,7 @@ call <sid>hi("LineNr", "102", "237", "none")
 " Number column
 " ------------------------------
 call <sid>hi("CursorColumn", "none", "237", "none")
+call <sid>hi("FoldColumn", "none", "none", "none")
 call <sid>hi("SignColumn", "NONE", "NONE", "none")
 call <sid>hi("Folded", "242", s:cbg, "none")
 
@@ -70,7 +71,7 @@ call <sid>hi("Title", s:cfg, "none", "bold")
 " ------------------------------
 call <sid>hi("MatchParen", s:magenta, "NONE", "underline")
 call <sid>hi("Visual", "none", "59", "none")
-call <sid>hi("NonText", "59", "236", "none")
+call <sid>hi("NonText", "59", "none", "none")
 
 call <sid>hi("Todo", "95", "none","none")
 call <sid>hi("Underlined", "none", "none", "underline")
