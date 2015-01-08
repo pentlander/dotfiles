@@ -33,7 +33,7 @@ endfun
 " ------------------------------
 " Editor settings
 " ------------------------------
-call <sid>hi("Normal", s:cfg, "none", "none")
+call <sid>hi("Normal", s:cfg, s:cbg, "none")
 call <sid>hi("Cursor", s:cbg, s:cfg, "none")
 call <sid>hi("CursorLine", "none", "237", "none")
 call <sid>hi("LineNr", "102", "237", "none")
