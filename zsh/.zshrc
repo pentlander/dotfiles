@@ -80,3 +80,5 @@ export GOPATH=$HOME/go
 bindkey -M vicmd 'k' up-line-or-search
 bindkey -M vicmd 'j' down-line-or-search
 export KEYTIMEOUT=1
+alias grep="/usr/bin/grep $GREP_OPTIONS"
+unset GREP_OPTIONS
