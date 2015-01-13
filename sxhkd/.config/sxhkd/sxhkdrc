@@ -142,6 +142,9 @@ XF86AudioRaiseVolume
 XF86AudioLowerVolume
 	pulseaudio-ctl down
 
+XF86AudioMute
+    pulseaudio-ctl mute
+
 
 # make sxhkd reload its configuration files:
 super + Escape
