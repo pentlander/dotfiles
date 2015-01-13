@@ -202,3 +202,5 @@ call <sid>hi("goDeclaration", s:cyan, "none", "none")
 " Python highlighting
 " ------------------------------
 call <sid>hi("pythonBuiltin", s:magenta, "none", "none")
+
+delf <sid>hi

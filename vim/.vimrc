@@ -82,6 +82,9 @@ nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 " paste from clipboard
 inoremap <c-v> <esc>"+pa
 
+" reload vimrc
+nnoremap <leader>rv :source $MYVIMRC<cr>
+
 " auto reload vimrc on saving vimrc
 augroup source-vimrc
     autocmd!
@@ -91,7 +94,7 @@ augroup END
 
 " :w sudo saves the file 
 " (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
+command! W w !sudo tee % > /dev/null
 
 let g:airline_powerline_fonts = 1
 let javascript_enable_domhtmlcss = 1
@@ -158,7 +161,6 @@ set tm=500
 
 " Add a bit extra margin to the left
 set foldcolumn=1
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
@@ -252,6 +254,7 @@ autocmd BufReadPost *
      \ if line("'\"") > 0 && line("'\"") <= line("$") |
      \   exe "normal! g`\"" |
      \ endif
+
 " Remember info about open buffers on close
 set viminfo^=%
 
@@ -259,7 +262,7 @@ let g:unite_source_history_yank_enable = 1
 let g:unite_source_rec_async_command = 'ag --nocolor --nogroup --hidden -g ""'
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 noremap [unite] <Nop>
-nmap <Space> [unite]
+map <Space> [unite]
 map [unite]/ :Unite -auto-preview -no-split grep:.<cr>
 map [unite]f :Unite file_rec/async<cr>
 map [unite]y :Unite history/yank<cr>
@@ -298,21 +301,25 @@ function! s:my_cr_function()
     " For no inserting <CR> key.
     return pumvisible() ? neocomplete#close_popup() : "\<CR>"
 endfunction
+
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
 
+" Set snippets directory
 let g:neosnippet#snippets_directory = '~/.vim/snippets'
+
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
-"
-" " SuperTab like snippets behavior.
+
+" SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)"
 \: pumvisible() ? "\<C-n>" : "\<TAB>"
