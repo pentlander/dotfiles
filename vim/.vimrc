@@ -16,8 +16,6 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 " My Bundles here:
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'bling/vim-airline'
-NeoBundle 'terryma/vim-multiple-cursors'
-NeoBundle 'sickill/vim-monokai'
 NeoBundle 'fatih/vim-go'
 NeoBundle 'Shougo/neocomplete'
 NeoBundle 'Shougo/neosnippet'
@@ -27,7 +25,6 @@ NeoBundle 'justinj/vim-react-snippets'
 NeoBundle 'mxw/vim-jsx'
 NeoBundle 'junegunn/goyo.vim'
 NeoBundle 'plasticboy/vim-markdown'
-NeoBundle 'vimwiki/vimwiki'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'wting/rust.vim'
 
@@ -79,9 +76,25 @@ let g:mapleader = ","
 " fast saving
 nmap <leader>w :w!<cr>
 
+" fast editing vimrc
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+
+" paste from clipboard
+inoremap <c-v> <esc>"+pa
+
+" reload vimrc
+nnoremap <leader>rv :source $MYVIMRC<cr>
+
+" auto reload vimrc on saving vimrc
+augroup source-vimrc
+    autocmd!
+    autocmd BufWritePost *vimrc source $MYVIMRC | set foldmethod=marker
+    autocmd BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
+augroup END
+
 " :w sudo saves the file 
 " (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
+command! W w !sudo tee % > /dev/null
 
 let g:airline_powerline_fonts = 1
 let javascript_enable_domhtmlcss = 1
@@ -149,20 +162,12 @@ set tm=500
 " Add a bit extra margin to the left
 set foldcolumn=1
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 syntax enable 
-
-try
-    set t_Co=256
-    colorscheme monokai
-catch
-endtry
-
-set background=dark
+colorscheme monokai
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -241,46 +246,23 @@ map <leader>bd :Bclose<cr>
 " Close all the buffers
 map <leader>ba :1,1000 bd!<cr>
 
-" Useful mappings for managing tabs
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove 
-map <leader>t<leader> :tabnext 
-
-" Opens a new tab with the current buffer's path
-" Super useful when editing files in the same directory
-map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
-
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
-
-" Specify the behavior when switching between buffers 
-try
-  set switchbuf=useopen,usetab,newtab
-  set stal=2
-catch
-endtry
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
      \ if line("'\"") > 0 && line("'\"") <= line("$") |
      \   exe "normal! g`\"" |
      \ endif
+
 " Remember info about open buffers on close
 set viminfo^=%
-
-augroup source-vimrc
-    autocmd!
-    autocmd BufWritePost *vimrc source $MYVIMRC | set foldmethod=marker
-    autocmd BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
-augroup END
 
 let g:unite_source_history_yank_enable = 1
 let g:unite_source_rec_async_command = 'ag --nocolor --nogroup --hidden -g ""'
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 noremap [unite] <Nop>
-nmap <Space> [unite]
+map <Space> [unite]
 map [unite]/ :Unite -auto-preview -no-split grep:.<cr>
 map [unite]f :Unite file_rec/async<cr>
 map [unite]y :Unite history/yank<cr>
@@ -319,21 +301,25 @@ function! s:my_cr_function()
     " For no inserting <CR> key.
     return pumvisible() ? neocomplete#close_popup() : "\<CR>"
 endfunction
+
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
 
+" Set snippets directory
 let g:neosnippet#snippets_directory = '~/.vim/snippets'
+
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
-"
-" " SuperTab like snippets behavior.
+
+" SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)"
 \: pumvisible() ? "\<C-n>" : "\<TAB>"

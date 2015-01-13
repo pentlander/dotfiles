@@ -11,101 +11,196 @@ endif
 set t_Co=256
 let g:colors_name = "monokai"
 
-hi Cursor ctermfg=235 ctermbg=231 cterm=NONE guifg=#272822 guibg=#f8f8f0 gui=NONE
-hi Visual ctermfg=NONE ctermbg=59 cterm=NONE guifg=NONE guibg=#49483e gui=NONE
-hi CursorLine ctermfg=NONE ctermbg=237 cterm=NONE guifg=NONE guibg=#3c3d37 gui=NONE
-hi CursorColumn ctermfg=NONE ctermbg=237 cterm=NONE guifg=NONE guibg=#3c3d37 gui=NONE
-hi ColorColumn ctermfg=NONE ctermbg=237 cterm=NONE guifg=NONE guibg=#3c3d37 gui=NONE
-hi LineNr ctermfg=102 ctermbg=237 cterm=NONE guifg=#90908a guibg=#3c3d37 gui=NONE
-hi VertSplit ctermfg=241 ctermbg=241 cterm=NONE guifg=#64645e guibg=#64645e gui=NONE
-hi MatchParen ctermfg=197 ctermbg=NONE cterm=underline guifg=#f92672 guibg=NONE gui=underline
-hi StatusLine ctermfg=231 ctermbg=241 cterm=bold guifg=#f8f8f2 guibg=#64645e gui=bold
-hi StatusLineNC ctermfg=231 ctermbg=241 cterm=NONE guifg=#f8f8f2 guibg=#64645e gui=NONE
-hi Pmenu ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
-hi PmenuSel ctermfg=NONE ctermbg=59 cterm=NONE guifg=NONE guibg=#49483e gui=NONE
-hi IncSearch ctermfg=235 ctermbg=186 cterm=NONE guifg=#272822 guibg=#e6db74 gui=NONE
-hi Search ctermfg=NONE ctermbg=NONE cterm=underline guifg=NONE guibg=NONE gui=underline
-hi Directory ctermfg=141 ctermbg=NONE cterm=NONE guifg=#ae81ff guibg=NONE gui=NONE
-hi Folded ctermfg=242 ctermbg=235 cterm=NONE guifg=#75715e guibg=#272822 gui=NONE
+let s:cfg = "231"
+let s:cbg = "235"
+let s:magenta = "197"
+let s:cyan = "81"
+let s:lavender = "141"
 
-hi Normal ctermfg=231 ctermbg=NONE cterm=NONE guifg=#f8f8f2 guibg=#272822 gui=NONE
-hi Boolean ctermfg=141 ctermbg=NONE cterm=NONE guifg=#ae81ff guibg=NONE gui=NONE
-hi Character ctermfg=141 ctermbg=NONE cterm=NONE guifg=#ae81ff guibg=NONE gui=NONE
-hi Comment ctermfg=242 ctermbg=NONE cterm=NONE guifg=#75715e guibg=NONE gui=NONE
-hi Conditional ctermfg=197 ctermbg=NONE cterm=NONE guifg=#f92672 guibg=NONE gui=NONE
-hi Constant ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
-hi Define ctermfg=81 ctermbg=NONE cterm=NONE guifg=#f92672 guibg=NONE gui=NONE
-hi DiffAdd ctermfg=231 ctermbg=64 cterm=bold guifg=#f8f8f2 guibg=#46830c gui=bold
-hi DiffDelete ctermfg=88 ctermbg=NONE cterm=NONE guifg=#8b0807 guibg=NONE gui=NONE
-hi DiffChange ctermfg=231 ctermbg=23 cterm=NONE guifg=#f8f8f2 guibg=#243955 gui=NONE
-hi DiffText ctermfg=231 ctermbg=24 cterm=bold guifg=#f8f8f2 guibg=#204a87 gui=bold
-hi ErrorMsg ctermfg=231 ctermbg=197 cterm=NONE guifg=#f8f8f0 guibg=#f92672 gui=NONE
-hi WarningMsg ctermfg=231 ctermbg=197 cterm=NONE guifg=#f8f8f0 guibg=#f92672 gui=NONE
-hi Float ctermfg=141 ctermbg=NONE cterm=NONE guifg=#ae81ff guibg=NONE gui=NONE
-hi Function ctermfg=148 ctermbg=NONE cterm=NONE guifg=#a6e22e guibg=NONE gui=NONE
-hi Identifier ctermfg=81 ctermbg=NONE cterm=NONE guifg=#66d9ef guibg=NONE gui=italic
-hi Keyword ctermfg=197 ctermbg=NONE cterm=NONE guifg=#f92672 guibg=NONE gui=NONE
-hi Label ctermfg=186 ctermbg=NONE cterm=NONE guifg=#e6db74 guibg=NONE gui=NONE
-hi NonText ctermfg=59 ctermbg=236 cterm=NONE guifg=#49483e guibg=#31322c gui=NONE
-hi Number ctermfg=141 ctermbg=NONE cterm=NONE guifg=#ae81ff guibg=NONE gui=NONE
-hi Operator ctermfg=197 ctermbg=NONE cterm=NONE guifg=#f92672 guibg=NONE gui=NONE
-hi PreProc ctermfg=197 ctermbg=NONE cterm=NONE guifg=#f92672 guibg=NONE gui=NONE
-hi Special ctermfg=231 ctermbg=NONE cterm=NONE guifg=#f8f8f2 guibg=NONE gui=NONE
-hi SpecialKey ctermfg=59 ctermbg=237 cterm=NONE guifg=#49483e guibg=#3c3d37 gui=NONE
-hi Statement ctermfg=81 ctermbg=NONE cterm=NONE guifg=#f92672 guibg=NONE gui=NONE
-hi StorageClass ctermfg=81 ctermbg=NONE cterm=NONE guifg=#66d9ef guibg=NONE gui=italic
-hi String ctermfg=186 ctermbg=NONE cterm=NONE guifg=#e6db74 guibg=NONE gui=NONE
-hi Tag ctermfg=197 ctermbg=NONE cterm=NONE guifg=#f92672 guibg=NONE gui=NONE
-hi Title ctermfg=231 ctermbg=NONE cterm=bold guifg=#f8f8f2 guibg=NONE gui=bold
-hi Todo ctermfg=95 ctermbg=NONE cterm=inverse,bold guifg=#75715e guibg=NONE gui=inverse,bold
-hi Type ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
-hi Underlined ctermfg=NONE ctermbg=NONE cterm=underline guifg=NONE guibg=NONE gui=underline
-hi rubyClass ctermfg=197 ctermbg=NONE cterm=NONE guifg=#f92672 guibg=NONE gui=NONE
-hi rubyFunction ctermfg=148 ctermbg=NONE cterm=NONE guifg=#a6e22e guibg=NONE gui=NONE
-hi rubyInterpolationDelimiter ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
-hi rubySymbol ctermfg=141 ctermbg=NONE cterm=NONE guifg=#ae81ff guibg=NONE gui=NONE
-hi rubyConstant ctermfg=81 ctermbg=NONE cterm=NONE guifg=#66d9ef guibg=NONE gui=italic
-hi rubyStringDelimiter ctermfg=186 ctermbg=NONE cterm=NONE guifg=#e6db74 guibg=NONE gui=NONE
-hi rubyBlockParameter ctermfg=208 ctermbg=NONE cterm=NONE guifg=#fd971f guibg=NONE gui=italic
-hi rubyInstanceVariable ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
-hi rubyInclude ctermfg=197 ctermbg=NONE cterm=NONE guifg=#f92672 guibg=NONE gui=NONE
-hi rubyGlobalVariable ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
-hi rubyRegexp ctermfg=186 ctermbg=NONE cterm=NONE guifg=#e6db74 guibg=NONE gui=NONE
-hi rubyRegexpDelimiter ctermfg=186 ctermbg=NONE cterm=NONE guifg=#e6db74 guibg=NONE gui=NONE
-hi rubyEscape ctermfg=141 ctermbg=NONE cterm=NONE guifg=#ae81ff guibg=NONE gui=NONE
-hi rubyControl ctermfg=197 ctermbg=NONE cterm=NONE guifg=#f92672 guibg=NONE gui=NONE
-hi rubyClassVariable ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
-hi rubyOperator ctermfg=197 ctermbg=NONE cterm=NONE guifg=#f92672 guibg=NONE gui=NONE
-hi rubyException ctermfg=197 ctermbg=NONE cterm=NONE guifg=#f92672 guibg=NONE gui=NONE
-hi rubyPseudoVariable ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
-hi rubyRailsUserClass ctermfg=81 ctermbg=NONE cterm=NONE guifg=#66d9ef guibg=NONE gui=italic
-hi rubyRailsARAssociationMethod ctermfg=81 ctermbg=NONE cterm=NONE guifg=#66d9ef guibg=NONE gui=NONE
-hi rubyRailsARMethod ctermfg=81 ctermbg=NONE cterm=NONE guifg=#66d9ef guibg=NONE gui=NONE
-hi rubyRailsRenderMethod ctermfg=81 ctermbg=NONE cterm=NONE guifg=#66d9ef guibg=NONE gui=NONE
-hi rubyRailsMethod ctermfg=81 ctermbg=NONE cterm=NONE guifg=#66d9ef guibg=NONE gui=NONE
-hi erubyDelimiter ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
-hi erubyComment ctermfg=95 ctermbg=NONE cterm=NONE guifg=#75715e guibg=NONE gui=NONE
-hi erubyRailsMethod ctermfg=81 ctermbg=NONE cterm=NONE guifg=#66d9ef guibg=NONE gui=NONE
-hi htmlTag ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
-hi htmlEndTag ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
-hi htmlTagName ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
-hi htmlArg ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
-hi htmlSpecialChar ctermfg=141 ctermbg=NONE cterm=NONE guifg=#ae81ff guibg=NONE gui=NONE
-hi javaScriptFunction ctermfg=81 ctermbg=NONE cterm=NONE guifg=#66d9ef guibg=NONE gui=italic
-hi javaScriptRailsFunction ctermfg=81 ctermbg=NONE cterm=NONE guifg=#66d9ef guibg=NONE gui=NONE
-hi javaScriptBraces ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
-hi yamlKey ctermfg=197 ctermbg=NONE cterm=NONE guifg=#f92672 guibg=NONE gui=NONE
-hi yamlAnchor ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
-hi yamlAlias ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
-hi yamlDocumentHeader ctermfg=186 ctermbg=NONE cterm=NONE guifg=#e6db74 guibg=NONE gui=NONE
-hi cssURL ctermfg=208 ctermbg=NONE cterm=NONE guifg=#fd971f guibg=NONE gui=italic
-hi cssFunctionName ctermfg=81 ctermbg=NONE cterm=NONE guifg=#66d9ef guibg=NONE gui=NONE
-hi cssColor ctermfg=141 ctermbg=NONE cterm=NONE guifg=#ae81ff guibg=NONE gui=NONE
-hi cssPseudoClassId ctermfg=148 ctermbg=NONE cterm=NONE guifg=#a6e22e guibg=NONE gui=NONE
-hi cssClassName ctermfg=148 ctermbg=NONE cterm=NONE guifg=#a6e22e guibg=NONE gui=NONE
-hi cssValueLength ctermfg=141 ctermbg=NONE cterm=NONE guifg=#ae81ff guibg=NONE gui=NONE
-hi cssCommonAttr ctermfg=81 ctermbg=NONE cterm=NONE guifg=#66d9ef guibg=NONE gui=NONE
-hi cssBraces ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
-hi goDeclaration ctermfg=81 ctermbg=NONE cterm=NONE
-hi pythonBuiltin ctermfg=197 ctermbg=NONE cterm=NONE
-hi jsFunctionKey ctermfg=148 ctermbg=NONE cterm=NONE guifg=#a6e22e guibg=NONE gui=NONE
+" Highlighting function
+fun <sid>hi(group, ctermfg, ctermbg, attr)
+  if a:ctermfg != ""
+    exec "hi " . a:group . " ctermfg=" . a:ctermfg
+  endif
+  if a:ctermbg != ""
+    exec "hi " . a:group . " ctermbg=" . a:ctermbg
+  endif
+  if a:attr != ""
+    exec "hi " . a:group . " cterm=" . a:attr
+  endif
+endfun
+
+" ------------------------------
+" Editor settings
+" ------------------------------
+call <sid>hi("Normal", s:cfg, "none", "none")
+call <sid>hi("Cursor", s:cbg, s:cfg, "none")
+call <sid>hi("CursorLine", "none", "237", "none")
+call <sid>hi("LineNr", "102", "237", "none")
+
+" ------------------------------
+" Number column
+" ------------------------------
+call <sid>hi("CursorColumn", "none", "237", "none")
+call <sid>hi("FoldColumn", "none", "none", "none")
+call <sid>hi("SignColumn", "NONE", "NONE", "none")
+call <sid>hi("Folded", "242", s:cbg, "none")
+
+" ------------------------------
+" Window/Tab delimiters
+" ------------------------------
+call <sid>hi("VertSplit", "237", "237", "none")
+call <sid>hi("ColorColumn", "237", "237", "none")
+
+" ------------------------------
+"  File Navigation/Searching
+" ------------------------------
+call <sid>hi("Directory", s:lavender, "none", "none")
+call <sid>hi("Search", "none", "none", "underline")
+call <sid>hi("IncSearch", s:cbg, "186", "none")
+
+" ------------------------------
+" Prompt/Status
+" ------------------------------
+call <sid>hi("StatusLine", s:cfg, "241", "bold")
+call <sid>hi("StatusLineNC", s:cfg, "241", "none")
+call <sid>hi("Title", s:cfg, "none", "bold")
+
+" ------------------------------
+" Visual Aid
+" ------------------------------
+call <sid>hi("MatchParen", s:magenta, "NONE", "underline")
+call <sid>hi("Visual", "none", "59", "none")
+call <sid>hi("NonText", "59", "none", "none")
+
+call <sid>hi("Todo", "95", "none","none")
+call <sid>hi("Underlined", "none", "none", "underline")
+call <sid>hi("ErrorMsg", s:cfg, s:magenta, "none")
+call <sid>hi("WarningMsg", s:cfg, s:magenta, "none")
+call <sid>hi("SpecialKey", "59", "237", "none")
+
+" ------------------------------
+" Variable types
+" ------------------------------
+call <sid>hi("Constant", "none", "none", "none")
+call <sid>hi("String", "186", "none", "none")
+call <sid>hi("Character", s:lavender, "none", "none")
+call <sid>hi("Number", s:lavender, "none", "none")
+call <sid>hi("Boolean", s:lavender, "none", "none")
+call <sid>hi("Float", s:lavender, "none", "none")
+
+call <sid>hi("Identifier", s:cyan, "none", "none")
+call <sid>hi("Function", "148", "none", "none")
+
+" ------------------------------
+" Language constructs
+" ------------------------------
+call <sid>hi("Statement", s:cyan, "none", "none")
+call <sid>hi("Conditional", s:magenta, "none", "none")
+call <sid>hi("Label", "186", "none", "none")
+call <sid>hi("Operator", s:magenta, "none", "none")
+call <sid>hi("Keyword", s:magenta, "none", "none")
+call <sid>hi("Comment", "242", "none", "none")
+
+call <sid>hi("Special", s:cfg, "none", "none")
+call <sid>hi("Tag", s:magenta, "none", "none")
+
+" ------------------------------
+" Completion menu
+" ------------------------------
+call <sid>hi("Pmenu", s:cfg, s:cbg, "none")
+call <sid>hi("PmenuSel", "none", "59", "none")
+
+" ------------------------------
+" C like
+" ------------------------------
+call <sid>hi("PreProc", s:magenta, "none", "none")
+call <sid>hi("Define", s:cyan, "none", "none")
+call <sid>hi("StorageClass", s:cyan, "none", "none")
+call <sid>hi("Type", "none", "none", "none")
+
+" ------------------------------
+" Diff
+" ------------------------------
+call <sid>hi("DiffAdd", s:cfg, "64", "bold")
+call <sid>hi("DiffDelete", "88", "none", "none")
+call <sid>hi("DiffChange", s:cfg, "23", "none")
+call <sid>hi("DiffText", s:cfg, "24", "bold")
+
+" ------------------------------
+" Ruby highlighting
+" ------------------------------
+call <sid>hi("rubyClass", s:magenta, "none", "none")
+call <sid>hi("rubyFunction", "148", "none", "none")
+call <sid>hi("rubyInterpolationDelimiter", "none", "none", "none")
+call <sid>hi("rubySymbol", s:lavender, "none", "none")
+call <sid>hi("rubyConstant", s:cyan, "none", "none")
+call <sid>hi("rubyStringDelimiter", "186", "none", "none")
+call <sid>hi("rubyBlockParameter", "208", "none", "none")
+call <sid>hi("rubyInstanceVariable", "none", "none", "none")
+call <sid>hi("rubyInclude", s:magenta, "none", "none")
+call <sid>hi("rubyGlobalVariable", "none", "none", "none")
+call <sid>hi("rubyRegexp", "186", "none", "none")
+call <sid>hi("rubyRegexpDelimiter", "186", "none", "none")
+call <sid>hi("rubyEscape", s:lavender, "none", "none")
+call <sid>hi("rubyControl", s:magenta, "none", "none")
+call <sid>hi("rubyClassVariable", "none", "none", "none")
+call <sid>hi("rubyOperator", s:magenta, "none", "none")
+call <sid>hi("rubyException", s:magenta, "none", "none")
+call <sid>hi("rubyPseudoVariable", "none", "none", "none")
+call <sid>hi("rubyRailsUserClass", s:cyan, "none", "none")
+call <sid>hi("rubyRailsARAssociationMethod", s:cyan, "none", "none")
+call <sid>hi("rubyRailsARMethod", s:cyan, "none", "none")
+call <sid>hi("rubyRailsRenderMethod", s:cyan, "none", "none")
+call <sid>hi("rubyRailsMethod", s:cyan, "none", "none")
+call <sid>hi("erubyDelimiter", "none", "none", "none")
+call <sid>hi("erubyComment", "95", "none", "none")
+call <sid>hi("erubyRailsMethod", s:cyan, "none", "none")
+
+" ------------------------------
+" Html highlighting
+" ------------------------------
+call <sid>hi("htmlTag", "none", "none", "none")
+call <sid>hi("htmlEndTag", "none", "none", "none")
+call <sid>hi("htmlTagName", "none", "none", "none")
+call <sid>hi("htmlArg", "none", "none", "none")
+call <sid>hi("htmlSpecialChar", s:lavender, "none", "none")
+
+" ------------------------------
+" Javascript highlighting
+" ------------------------------
+call <sid>hi("javaScriptFunction", s:cyan, "none", "none")
+call <sid>hi("javaScriptRailsFunction", s:cyan, "none", "none")
+call <sid>hi("javaScriptBraces", "none", "none", "none")
+call <sid>hi("jsFunctionKey", "148", "none", "none")
+
+" ------------------------------
+" YAML highlighting
+" ------------------------------
+call <sid>hi("yamlKey", s:magenta, "none", "none")
+call <sid>hi("yamlAnchor", "none", "none", "none")
+call <sid>hi("yamlAlias", "none", "none", "none")
+call <sid>hi("yamlDocumentHeader", "186", "none", "none")
+
+" ------------------------------
+" CSS highlighting
+" ------------------------------
+call <sid>hi("cssURL", "208", "none", "none")
+call <sid>hi("cssFunctionName", s:cyan, "none", "none")
+call <sid>hi("cssColor", s:lavender, "none", "none")
+call <sid>hi("cssPseudoClassId", "148", "none", "none")
+call <sid>hi("cssClassName", "148", "none", "none")
+call <sid>hi("cssValueLength", s:lavender, "none", "none")
+call <sid>hi("cssCommonAttr", s:cyan, "none", "none")
+call <sid>hi("cssBraces", "none", "none", "none")
+
+" ------------------------------
+" go highlighting
+" ------------------------------
+call <sid>hi("goDeclaration", s:cyan, "none", "none")
+"------------------------------"
+" Python highlighting
+" ------------------------------
+call <sid>hi("pythonBuiltin", s:magenta, "none", "none")
+
+delf <sid>hi
