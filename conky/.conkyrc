@@ -1,0 +1,52 @@
+
+#
+# Any original torsmo code is licensed under the BSD license
+#
+# All code written since the fork of torsmo is licensed under the GPL
+#
+# Please see COPYING for details
+#
+# Copyright (c) 2004, Hannu Saransaari and Lauri Hakkarainen
+# Copyright (c) 2005-2010 Brenden Matthews, Philip Kovacs, et. al. (see AUTHORS)
+# All rights reserved.
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+background no
+net_avg_samples 2
+no_buffers yes
+out_to_console yes
+out_to_stderr no
+alignment bottom_middle
+own_window yes
+own_window_type panel
+own_window_type sticky,below
+update_interval 1
+uppercase no
+gap_y 10
+default_bar_size 20 5
+minimum_size 1400 8
+maximum_width 1500
+font Terminus
+
+TEXT
+${image ~/wkspace-thumb.png -f 3}\
+${alignr}\
+Net ${wireless_essid wlp3s0} ${wireless_link_bar wlp3s0}  |   \
+Cpu ${cpugraph 8,20}  |  \
+Mem ${membar}  |  \
+Batt ${if_match $battery_percent > 75}${color green}\
+${else}${color yellow}\
+${endif}${battery_bar}${color}  |  \
+${time %b%e %l:%M}
