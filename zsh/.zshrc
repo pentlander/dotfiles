@@ -57,7 +57,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH=$HOME/.gem/ruby/2.1.0/bin:$HOME/go/bin:$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.gem/ruby/2.2.0/bin:$HOME/go/bin:$HOME/bin:/usr/local/bin:$PATH
 export GOPATH=$HOME/go
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -81,4 +81,6 @@ bindkey -M vicmd 'k' up-line-or-search
 bindkey -M vicmd 'j' down-line-or-search
 export KEYTIMEOUT=1
 alias grep="/usr/bin/grep $GREP_OPTIONS"
+alias cwp="feh --randomize --bg-scale ~/Wallpapers/* &>/dev/null"
 unset GREP_OPTIONS
+export EDITOR=vim

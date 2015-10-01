@@ -1,3 +1,4 @@
 # Ignore vim plugin files
 vim/.vim/bundle
 vim/.vim/.netrwhist
+vim/.vim/spell
