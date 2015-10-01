@@ -84,3 +84,9 @@ alias grep="/usr/bin/grep $GREP_OPTIONS"
 alias cwp="feh --randomize --bg-scale ~/Wallpapers/* &>/dev/null"
 unset GREP_OPTIONS
 export EDITOR=vim
+
+PATH="/home/alex/perl5/bin${PATH+:}${PATH}"; export PATH;
+PERL5LIB="/home/alex/perl5/lib/perl5${PERL5LIB+:}${PERL5LIB}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/alex/perl5${PERL_LOCAL_LIB_ROOT+:}${PERL_LOCAL_LIB_ROOT}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/alex/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/alex/perl5"; export PERL_MM_OPT;
