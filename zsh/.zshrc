@@ -57,7 +57,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH=$HOME/.gem/ruby/2.1.0/bin:$HOME/go/bin:$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.gem/ruby/2.2.0/bin:$HOME/go/bin:$HOME/bin:/usr/local/bin:$PATH
 export GOPATH=$HOME/go
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -82,3 +82,9 @@ bindkey -M vicmd 'j' down-line-or-search
 export KEYTIMEOUT=1
 alias grep="/usr/bin/grep $GREP_OPTIONS"
 unset GREP_OPTIONS
+
+PATH="/home/alex/perl5/bin${PATH+:}${PATH}"; export PATH;
+PERL5LIB="/home/alex/perl5/lib/perl5${PERL5LIB+:}${PERL5LIB}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/alex/perl5${PERL_LOCAL_LIB_ROOT+:}${PERL_LOCAL_LIB_ROOT}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/alex/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/alex/perl5"; export PERL_MM_OPT;

@@ -42,7 +42,7 @@ call <sid>hi("LineNr", "102", "237", "none")
 " Number column
 " ------------------------------
 call <sid>hi("CursorColumn", "none", "237", "none")
-call <sid>hi("FoldColumn", "none", "none", "none")
+call <sid>hi("FoldColumn", s:cbg, "none", "none")
 call <sid>hi("SignColumn", "NONE", "NONE", "none")
 call <sid>hi("Folded", "242", s:cbg, "none")
 

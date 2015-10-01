@@ -1,52 +1,32 @@
-"NeoBundle Scripts-----------------------------
-if has('vim_starting')
-    set nocompatible               " Be iMproved
+call plug#begin('~/.vim/plugged')
 
-" Required:
-    set runtimepath+=/home/alex/.vim/bundle/neobundle.vim/
-endif
+" My Plugins here:
+Plug 'Shougo/unite.vim'
+Plug 'bling/vim-airline'
+Plug 'Shougo/neocomplete'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'junegunn/goyo.vim'
+Plug 'scrooloose/syntastic'
+Plug 'tpope/vim-dispatch'
 
-" Required:
-call neobundle#begin(expand('~/.vim/bundle'))
+Plug 'fatih/vim-go', {'for': 'go'}
+Plug 'wting/rust.vim', {'for': 'rust'}
+Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
+Plug 'tpope/vim-classpath', {'for': 'clojure'}
+Plug 'tpope/vim-leiningen', {'for': 'clojure'}
+Plug 'tpope/vim-fireplace', {'for': 'clojure'}
+Plug 'kien/rainbow_parentheses.vim', {'for': 'clojure'}
 
-" My Bundles here:
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'bling/vim-airline'
-NeoBundle 'fatih/vim-go'
-NeoBundle 'Shougo/neocomplete'
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'justinj/vim-react-snippets'
-NeoBundle 'mxw/vim-jsx'
-NeoBundle 'junegunn/goyo.vim'
-NeoBundle 'plasticboy/vim-markdown'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'wting/rust.vim'
+Plug 'mxw/vim-jsx', {'for': 'javascript'}
+Plug 'pangloss/vim-javascript', {'for': 'javascript'}
+Plug 'justinj/vim-react-snippets', {'for': 'javascript'}
 
-execute "NeoBundle 'Shougo/vimproc.vim'," . string({
-      \ 'build' : {
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'unix' : 'make -f make_unix.mak',
-      \    },
-      \ })
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-notes'
 
-
-" required:
-call neobundle#end()
-
-" required:
-filetype plugin indent on
-
-" if there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
-"      "end neobundle scripts-------------------------
+call plug#end()
 
 " checks the syntax of the currently highlighted word
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
@@ -258,15 +238,28 @@ autocmd BufReadPost *
 " Remember info about open buffers on close
 set viminfo^=%
 
+""""""""""""""""""""""""""""""
+" => Unite
+""""""""""""""""""""""""""""""
+
 let g:unite_source_history_yank_enable = 1
 let g:unite_source_rec_async_command = 'ag --nocolor --nogroup --hidden -g ""'
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
+
 noremap [unite] <Nop>
 map <Space> [unite]
+map [unite]p :UniteWithProjectDir -start-insert file_rec/async<cr>
 map [unite]/ :Unite -auto-preview -no-split grep:.<cr>
 map [unite]f :Unite file_rec/async<cr>
 map [unite]y :Unite history/yank<cr>
 map [unite]b :Unite buffer<cr>
+
+autocmd FileType unite call s:unite_settings()
+
+function! s:unite_settings()
+    noremap <silent><buffer><expr> <leader>s unite#do_action('split')
+    noremap <silent><buffer><expr> <leader>v unite#do_action('vsplit')
+endfunction
 
 """"""""""""""""""""""""""""""
 " => Syntastic
@@ -284,11 +277,12 @@ let g:acp_enableAtStartup = 0
 let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
-" Use fuzzy completion
-let g:neocomplete#enable_fuzzy_completion = 1
 " Set minimum syntax keyword length.
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+let g:neocomplete#enable_auto_close_preview = 1
+
+call neocomplete#custom#source('_', 'sorters', ['sorter_rank'])
 
 " Plugin key-mappings.
 inoremap <expr><C-g>     neocomplete#undo_completion()
@@ -306,8 +300,8 @@ endfunction
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+"inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+"inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
 
