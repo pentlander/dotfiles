@@ -80,8 +80,10 @@ export GOPATH=$HOME/go
 bindkey -M vicmd 'k' up-line-or-search
 bindkey -M vicmd 'j' down-line-or-search
 export KEYTIMEOUT=1
+export EDITOR=nvim
 alias grep="/usr/bin/grep $GREP_OPTIONS"
 unset GREP_OPTIONS
+eval $(dircolors ~/.dircolors)
 
 PATH="/home/alex/perl5/bin${PATH+:}${PATH}"; export PATH;
 PERL5LIB="/home/alex/perl5/lib/perl5${PERL5LIB+:}${PERL5LIB}"; export PERL5LIB;

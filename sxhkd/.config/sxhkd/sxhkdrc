@@ -119,7 +119,7 @@ super + @button{1-3}
 #
 
 super + Return
-	urxvt
+	termite
 
 super + space
 	dmenu-launch
