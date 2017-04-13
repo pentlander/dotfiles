@@ -2,102 +2,106 @@
 # bspwm hotkeys
 #
 
+
+super + Return
+	termite
+
 # Logout
 super + alt + Escape
 	bspc quit
 
-# Close window
+# Close node
 super + w
-	bspc window -c
+	bspc node -c
 
 # Toggle monocole mode
 super + t
 	bspc desktop -l next
 
-# Balance windows
+# Balance nodes
 super + b
 	bspc desktop -B
 
-# Set window to fullscreen/pseudo-tiled mode
-super + {f,p}
-	bspc window -t {fullscreen,pseudo_tiled}
+# Set node to fullscreen/pseudo-tiled mode
+super + {shift + t,f,p}
+	bspc node -t {tiled,fullscreen,pseudo_tiled}
 
-# Swtich to last used window/desktop
+# Swtich to last used node/desktop
 super + {grave,Tab}
-	bspc {window,desktop} -f last
+	bspc {node,desktop} -f last
 
-# Swap positions with the last used window
+# Swap positions with the last used node
 #super + apostrophe
-#	bspc window -s last
+#	bspc node -s last
 
 
 super + {o,i}
 	bspc control --record-history off; \
-	bspc window {older,newer} -f; \
+	bspc node {older,newer} -f; \
 	bspc control --record-history on
 
-# Move window to last preselection
+# Move node to last preselection
 super + y
-	bspc window -w last.manual
+	bspc node -w last.manual
 
-# Swap positions with the largest window
+# Swap positions with the largest node
 super + m
-	bspc window -s biggest
+	bspc node -s biggest
 
-# Focus/move window
+# Focus/move node
 super + {_,shift + }{h,j,k,l}
-	bspc window -{f,s} {left,down,up,right}
+	bspc node -{f,s} {west,south,north,east}
 
-# Select next/previous window in the tree
+# Select next/previous node in the tree
 super + {_,shift + }c
-	bspc window -f {next,prev}
+	bspc node -f {next,prev}
 
 super + {comma,period}
 	bspc desktop -C {backward,forward}
 
 # Focus/move to previous desktop
 super + {_,shift + }bracketleft
-	bspc {desktop -f prev,window -d prev -f}
+	bspc {desktop -f prev.local,node -d prev.local -f}
 
 # Focus/move to next desktop
 super + {_,shift + }bracketright
-	bspc {desktop -f next,window -d next -f}
+	bspc {desktop -f next.local,node -d next.local -f}
 
-# Focus/move to left monitor
+# Focus/move to west monitor
 super + {_,shift + }semicolon
-	bspc {monitor -f left,window -m left && \
-		bspc window -f last}
+	bspc {monitor -f west,node -m west && \
+		bspc node -f last}
 
-# Focus/move to right monitor
+# Focus/move to east monitor
 super + {_,shift + }apostrophe
-	bspc {monitor -f right,window -m right && \
-		bspc window -f last}
+	bspc {monitor -f east,node -m east && \
+		bspc node -f last}
 
 # Swap current desktop with last selected one
 super + s
 	bspc desktop -s last
 
-# Preselect part of a window
+# Preselect part of a node
 super + ctrl + {h,j,k,l}
-	bspc window -p {left,down,up,right}
+	bspc node -p {west,south,north,east}
 
 # Cancel preselection
 super + ctrl + {_,shift + }x
-	bspc {window -p cancel,desktop -c}
+	bspc {node -p cancel,desktop -c}
 
 super + alt + {h,j,k,l}
-	bspc window -e {left -10,down +10,up -10,right +10}
+	bspc node -e {west -10,down +10,up -10,east +10}
 
 super + alt + shift + {h,j,k,l}
-	bspc window -e {right -10,up +10,down -10,left +10}
+	bspc node -e {east -10,up +10,down -10,west +10}
 
 # Set preselection size ratio 
 super + ctrl + {1-9}
-	bspc window -r 0.{1-9}
+	bspc node -r 0.{1-9}
 
 # Focus desktop/move to desktop X
 super + {_,shift + }{1-9,0}
-	bspc {desktop -f,window -d} ^{1-9,10}
+	bspc {desktop -f,node -d} ^{1-9,10}
 
 super + ctrl + alt + h
 	bspc control --toggle-visibility
@@ -117,9 +121,6 @@ super + @button{1-3}
 #
 # wm independent hotkeys
 #
-
-super + Return
-	termite
 
 super + space
 	dmenu-launch

@@ -35,11 +35,12 @@ conky.config = {
 	uppercase = false,
 
 	alignment = 'top_middle',
+	gap_x = 1920,
 	gap_y = 10,
 	default_bar_width = 20, default_bar_height = 5,
 	default_graph_width = 20, default_graph_height = 9,
-	minimum_width = 1500, minimum_height = 8,
-	maximum_width = 1550,
+	minimum_width = 3800, minimum_height = 8,
+	maximum_width = 3840,
 
 	default_color = '#ccccc6',
 	default_shade_color = '#1b1d1e',
@@ -61,11 +62,9 @@ conky.text = [[
   ${user_names}  |  \
 Updates ${color #56c2d6}${execpi 600 ${template2 n_updates}}${color}    \
 ${alignc}\
-        Cpu ${template0 cpu cpugraph #f92672 #fd971f #82b414}  |  \
+Cpu ${template0 cpu cpugraph #f92672 #fd971f #82b414}  |  \
 Disk ${template0 fs_used_perc fs_bar #f92672 #fd971f #82b414}  |  \
 Mem ${template0 memperc memgraph #f92672 #fd971f #82b414}\
 ${alignr}\
-Net ${wireless_essid wlp3s0} ${template1 wireless_link_qual_perc wireless_link_bar wlp3s0 #82b414 #fd971f #f92672}  |  \
-Batt ${template0 battery_percent battery_bar #82b414 #fd971f #f92672}  |  \
 ${time %b%e %l:%M}  
 ]];
