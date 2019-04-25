@@ -4,3 +4,7 @@ vim/.vim/plugged
 vim/.vim/autoload
 vim/.vim/.netrwhist
 vim/.vim/spell
+
+nvim/.config/nvim/autoload
+nvim/.config/nvim/.netrwhist
+nvim/.config/nvim/spell

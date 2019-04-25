@@ -1,7 +1,14 @@
-call plug#begin('~/.vim/plugged')
+" Install vim-plug if we don't already have it
+if empty(glob('~/.nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.nvim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin('~/.local/share/nvim/plugged')
 
 " My Plugins here:
-Plug 'Shougo/unite.vim'
+Plug 'Shougo/denite.nvim'
 Plug 'bling/vim-airline'
 Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/neosnippet'
@@ -9,15 +16,11 @@ Plug 'Shougo/neosnippet-snippets'
 Plug 'junegunn/goyo.vim'
 Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-dispatch'
+Plug 'sbdchd/neoformat'
 
 Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'wting/rust.vim', {'for': 'rust'}
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
-
-Plug 'tpope/vim-classpath', {'for': 'clojure'}
-Plug 'tpope/vim-leiningen', {'for': 'clojure'}
-Plug 'tpope/vim-fireplace', {'for': 'clojure'}
-Plug 'kien/rainbow_parentheses.vim', {'for': 'clojure'}
 
 Plug 'mxw/vim-jsx', {'for': 'javascript'}
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
@@ -51,6 +54,7 @@ set autoread
 " with a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
 let mapleader = ","
+let maplocalleader = ","
 let g:mapleader = ","
 
 " fast saving
@@ -68,8 +72,7 @@ nnoremap <leader>rv :source $MYVIMRC<cr>
 " auto reload vimrc on saving vimrc
 augroup source-vimrc
     autocmd!
-    autocmd BufWritePost *vimrc source $MYVIMRC | set foldmethod=marker
-    autocmd BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC | set foldmethod=marker
 augroup END
 
 " :w sudo saves the file 
@@ -79,6 +82,10 @@ command! W w !sudo tee % > /dev/null
 let g:airline_powerline_fonts = 1
 let javascript_enable_domhtmlcss = 1
 
+augroup fmt
+    autocmd!
+    autocmd BufWritePre * undojoin | Neoformat
+augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vim user interface
@@ -242,24 +249,23 @@ set viminfo^=%
 " => Unite
 """"""""""""""""""""""""""""""
 
-let g:unite_source_history_yank_enable = 1
-let g:unite_source_rec_async_command = 'ag --nocolor --nogroup --hidden -g ""'
-"call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
+let g:denite_source_history_yank_enable = 1
+call denite#custom#var('file/rec', 'command',
+\ ['rg', '--files'])
 
-noremap [unite] <Nop>
-map <Space> [unite]
-map [unite]p :UniteWithProjectDir -start-insert file_rec/async<cr>
-map [unite]/ :Unite -auto-preview -no-split grep:.<cr>
-map [unite]f :Unite file_rec/neovim<cr>
-map [unite]y :Unite history/yank<cr>
-map [unite]b :Unite buffer<cr>
+noremap [denite] <Nop>
+map <Space> [denite]
+map [denite]p :DeniteProjectDir file/rec<cr>
+map [denite]/ :Denite -auto-preview -no-split grep:.<cr>
+map [denite]f :Denite file/rec<cr>
+map [denite]y :Denite history/yank<cr>
+map [denite]b :Denite buffer<cr>
 
-autocmd FileType unite call s:unite_settings()
+autocmd FileType denite call s:denite_settings()
 
-function! s:unite_settings()
-    noremap <silent><buffer><expr> <leader>s unite#do_action('split')
-    noremap <silent><buffer><expr> <leader>v unite#do_action('vsplit')
+function! s:denite_settings()
+    noremap <silent><buffer><expr> <leader>s denite#do_action('split')
+    noremap <silent><buffer><expr> <leader>v denite#do_action('vsplit')
 endfunction
 
 """"""""""""""""""""""""""""""
@@ -274,6 +280,7 @@ let g:jsx_ext_required = 0
 """"""""""""""""""""""""""""""
 " <TAB>: completion.
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#complete_method = "complete"
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " <C-h>, <BS>: close popup and delete backword char.

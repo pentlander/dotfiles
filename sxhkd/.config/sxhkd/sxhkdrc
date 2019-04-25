@@ -4,7 +4,7 @@
 
 
 super + Return
-	termite
+	WINIT_HIDPI_FACTOR='1.0' alacritty 
 
 # Logout
 super + alt + Escape
@@ -23,8 +23,8 @@ super + b
 	bspc desktop -B
 
 # Set node to fullscreen/pseudo-tiled mode
-super + {shift + t,f,p}
-	bspc node -t {tiled,fullscreen,pseudo_tiled}
+super + {shift + t,f,p,o}
+	bspc node -t {tiled,fullscreen,pseudo_tiled,floating}
 
 # Swtich to last used node/desktop
 super + {grave,Tab}
@@ -42,7 +42,7 @@ super + {o,i}
 
 # Move node to last preselection
 super + y
-	bspc node -w last.manual
+	bspc node -n last.!automatic
 
 # Swap positions with the largest node
 super + m
@@ -69,12 +69,12 @@ super + {_,shift + }bracketright
 
 # Focus/move to west monitor
 super + {_,shift + }semicolon
-	bspc {monitor -f west,node -m west && \
+	bspc {monitor -f prev,node -m prev && \
 		bspc node -f last}
 
 # Focus/move to east monitor
 super + {_,shift + }apostrophe
-	bspc {monitor -f east,node -m east && \
+	bspc {monitor -f next,node -m next && \
 		bspc node -f last}
 
 # Swap current desktop with last selected one
@@ -90,14 +90,14 @@ super + ctrl + {_,shift + }x
 	bspc {node -p cancel,desktop -c}
 
 super + alt + {h,j,k,l}
-	bspc node -e {west -10,down +10,up -10,east +10}
+	bspc node -z {left -10 0,down 0 +10,up 0 -10,right +10 0}
 
 super + alt + shift + {h,j,k,l}
-	bspc node -e {east -10,up +10,down -10,west +10}
+	bspc node -z {right -10 0,top 0 +10,bottom 0 -10,left +10 0}
 
 # Set preselection size ratio 
 super + ctrl + {1-9}
-	bspc node -r 0.{1-9}
+	bspc node -o 0.{1-9}
 
 # Focus desktop/move to desktop X
 super + {_,shift + }{1-9,0}
@@ -128,14 +128,17 @@ super + space
 super + ctrl + space
 	dswitcher
 
+super + slash
+    dmenu-task
+
 XF86AudioPlay
-	mpc toggle
+	playerctl play-pause
 
 XF86AudioPrev
-	mpc prev
+	playerctl prev
 
 XF86AudioNext
-	mpc next
+	playerctl next
 
 XF86AudioRaiseVolume
 	pulseaudio-ctl up
@@ -145,6 +148,9 @@ XF86AudioLowerVolume
 
 XF86AudioMute
     pulseaudio-ctl mute
+
+Scroll_Lock
+    playerctl pause; gnome-screensaver-command -l
 
 
 # make sxhkd reload its configuration files:
