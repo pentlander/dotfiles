@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o errtrace
+set -o nounset
+set -o pipefail
+
+main() {
+    local cmd="$1"
+    
+    if [[ $cmd = 'check' ]]; then
+        [[ "$(playerctl status)" = "Playing" || "$(playerctl status)" = "Paused" ]] && echo "0"
+    elif [[ $cmd == 'get' ]]; then
+        if [[ "$(playerctl status)" = "Playing" ]]; then 
+            playerctl metadata xesam:artist | tr '\n' ' '
+            echo -n "- "
+            playerctl metadata xesam:title
+        else 
+            echo -n ""
+        fi
+    elif [[ $cmd == 'play-pause' ]]; then
+        playerctl play-pause
+    fi
+}
+
+main "$@"

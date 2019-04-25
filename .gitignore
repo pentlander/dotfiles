@@ -8,3 +8,9 @@ vim/.vim/spell
 nvim/.config/nvim/autoload
 nvim/.config/nvim/.netrwhist
 nvim/.config/nvim/spell
+
+# Ignore symlinks and binaries
+bin/bin/alacritty
+bin/bin/firefox
+bin/bin/idea
+

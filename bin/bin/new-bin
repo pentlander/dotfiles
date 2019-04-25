@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o errtrace
+set -o nounset
+set -o pipefail
+
+main() {
+    local filename="$1"
+    local body='
+#!/usr/bin/env bash
+
+set -o errexit
+set -o errtrace
+set -o nounset
+set -o pipefail
+
+main() {
+    local var="$1"
+}
+
+main "$@"'
+
+    echo "$body" | tail -n +2 > "$filename"
+    $EDITOR "$filename"
+    chmod +x "$filename"
+}
+
+main "$@"

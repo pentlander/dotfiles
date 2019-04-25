@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o errtrace
+set -o nounset
+set -o pipefail
+
+main() {
+    local cmd; cmd="$(echo -e 'add\nannotate\nmodify\ndone' | dmenu -p 'Enter command:')"
+    local options=''
+    local id=''
+
+    if [ "$cmd" != 'add' ]; then
+        options="$(task rc.verbose:nothing rc.report.next.columns:id,description.desc rc.report.next.labels:1,2 limit:10 next)"
+        id="$(echo "$options" | dmenu -l 5 | cut -d ' ' -f 1)"
+    fi
+
+    local args='';
+    if [ "$cmd" != 'done' ]; then
+         args="$(echo '' | dmenu)"
+    fi
+
+    local output; output="$(task $cmd $id $args)"
+
+    notify-send "$output"
+}
+
+main "$@"

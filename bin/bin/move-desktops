@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o errtrace
+set -o nounset
+set -o pipefail
+
+main() {
+    move_desktops
+    remove_extra_desktops
+    setxkbmap -option caps:escape
+}
+
+move_desktops() {
+    echo "Moving desktops"
+    if [ "$(_monitor_count)" -eq "3" ]; then
+        move_desktops_to_monitor '^1' 1 2 3 4
+        move_desktops_to_monitor '^2' 5 6 7 8
+        move_desktops_to_monitor '^3' 9 10 11 12
+    elif [ "$(_monitor_count)" -eq "2" ]; then
+        move_desktops_to_monitor '^1' 1 2 3 4 5 6
+        move_desktops_to_monitor '^2' 7 8 9 10 11 12
+    else
+        move_desktops_to_monitor '^1' 1 2 3 4 5 6 7 8 9 10 11 12
+    fi
+}
+
+_monitor_count() {
+    bspc query -M | wc -l
+}
+
+_desktop_name_to_id() {
+    paste <(bspc query -D --names) <(bspc query -D)
+}
+
+_connected_monitors() {
+    xrandr | grep " connected " | awk '{ print$1 }'
+}
+
+remove_extra_desktops() {
+    _desktop_name_to_id | while read desktop; do 
+        if [[ $desktop == Desktop* ]]; then 
+            bspc desktop "$(echo "$desktop" | cut -f 2)" --remove
+        fi
+    done
+}
+
+move_desktops_to_monitor() {
+    local monitor="$1"
+    shift
+
+    for dsk in "$@"; do 
+        bspc desktop "$dsk" -m "$monitor" || true
+    done
+}
+
+main "$@"
