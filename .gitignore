@@ -13,4 +13,5 @@ nvim/.config/nvim/spell
 bin/bin/alacritty
 bin/bin/firefox
 bin/bin/idea
+bin/bin/studio
 
