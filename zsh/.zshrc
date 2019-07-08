@@ -66,6 +66,12 @@ export PATH="$HOME/bin:$HOME/.cargo/bin:$PATH"
 export KEYTIMEOUT=1
 export DOCKER_HOST='unix:///var/run/docker.sock'
 export NVM_DIR="$HOME/.nvm"
+## Android paths
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH="$PATH:$ANDROID_HOME/emulator"
+export PATH="$PATH:$ANDROID_HOME/tools"
+export PATH="$PATH:$ANDROID_HOME/tools/bin"
+export PATH="$PATH:$ANDROID_HOME/platform-tools"
 
 
 # Set vi keybindings for the shell

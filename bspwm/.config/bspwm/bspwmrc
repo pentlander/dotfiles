@@ -1,5 +1,6 @@
 #! /bin/sh
 
+bspc config pointer_modifier shift
 bspc config focus_follows_pointer true
 
 primary="$(bspc query -M -m primary)"
@@ -16,8 +17,8 @@ bspc config remove_disabled_monitors    true
 bspc config remove_unplugged_monitors   true
 
 bspc rule -a jetbrains- focus=on
-bspc rule -a Pidgin monitor=^3
 bspc rule -a Evolution monitor=^3
+bspc rule -a Android state=floating
 
 sxhkd &
 polybar example &

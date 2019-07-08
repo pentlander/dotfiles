@@ -14,6 +14,7 @@ main() {
         monitor_add*|monitor_geometry*)
             sleep 0.5
             move-desktops
+            _restart_polybar
             ;;
         *)
             ;;
@@ -38,6 +39,11 @@ reset_desktops() {
 
 _monitor_count() {
     bspc query -M | wc -l
+}
+
+_restart_polybar() {
+    pkill polybar
+    polybar --reload example &
 }
 
 

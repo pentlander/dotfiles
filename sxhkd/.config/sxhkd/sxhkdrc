@@ -4,7 +4,7 @@
 
 
 super + Return
-	WINIT_HIDPI_FACTOR='1.0' alacritty 
+	termite
 
 # Logout
 super + alt + Escape
@@ -105,18 +105,6 @@ super + {_,shift + }{1-9,0}
 
 super + ctrl + alt + h
 	bspc control --toggle-visibility
-
-~button1
-	bspc pointer -g focus
-
-super + button{1-3}
-	bspc pointer -g {move,resize_side,resize_corner}
-
-super + !button{1-3}
-	bspc pointer -t %i %i
-
-super + @button{1-3}
-	bspc pointer -u
 
 #
 # wm independent hotkeys
