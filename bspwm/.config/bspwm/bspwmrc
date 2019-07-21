@@ -21,6 +21,8 @@ bspc rule -a Evolution monitor=^3
 bspc rule -a Android state=floating
 
 sxhkd &
-polybar example &
 bspwm-workspaces &
-compton -C &
+polybar left --reload & 
+polybar right --reload &
+#compton &
+feh --randomize --bg-scale /home/alex/Wallpapers/* &>/dev/null

@@ -1,11 +1,11 @@
 " Install vim-plug if we don't already have it
-if empty(glob('~/.nvim/autoload/plug.vim'))
-  silent !curl -fLo ~/.nvim/autoload/plug.vim --create-dirs
+if empty(glob('~/.local/share/nvim/site/autoload'))
+  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-call plug#begin('~/.local/share/nvim/plugged')
+call plug#begin('~/.local/share/nvim/site/plugged')
 
 " My Plugins here:
 Plug 'Shougo/denite.nvim'
@@ -18,7 +18,9 @@ Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-dispatch'
 Plug 'sbdchd/neoformat'
 
+
 Plug 'fatih/vim-go', {'for': 'go'}
+Plug 'zchee/deoplete-go', {'for': 'go', 'do': 'make'}
 Plug 'wting/rust.vim', {'for': 'rust'}
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 
@@ -276,7 +278,7 @@ let g:syntastic_javascript_jsxhint_args = "--config ~/.jshintrc"
 let g:jsx_ext_required = 0
 
 """"""""""""""""""""""""""""""
-" => Neocomplcache completion
+" => Deoplete completion
 """"""""""""""""""""""""""""""
 " <TAB>: completion.
 let g:deoplete#enable_at_startup = 1
@@ -295,14 +297,6 @@ imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 
-" SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: "\<TAB>"
-"
 " " For snippet_complete marker.
 if has('conceal')
   set conceallevel=2 concealcursor=i

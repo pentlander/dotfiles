@@ -1,5 +1,5 @@
 [options]
-font = Deja Vu Sans Mono for Powerline 10
+font = Deja Vu Sans Mono for Powerline 8
 cursor_blink = off
 scrollback_lines = 10000
 

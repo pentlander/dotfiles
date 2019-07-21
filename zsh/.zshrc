@@ -1,4 +1,5 @@
 # Hack to minimize compinit time to speed up shell startup
+autoload -Uz compinit
 setopt EXTENDEDGLOB
 for dump in $HOME/.zcompdump(#qN.m1); do
     compinit
@@ -31,23 +32,18 @@ antigen apply
 
 autoload -Uz prompt-pwd
 
-# Customize to your needs...
-
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
-[[ -f ~/.config/amzn/zshrc ]] && source ~/.config/amzn/zshrc
-source "$HOME/.nix-profile/etc/profile.d/nix.sh"
-setxkbmap -option caps:escape
-
-# Hacks to fix Intellij on bspwm
-export _JAVA_AWT_WM_NONREPARENTING=1
-wmname LG3D
 
 # Aliases
-alias vim="nvim"
-alias ez="nvim $HOME/.zshrc; source $HOME/.zshrc"
-alias :q='echo "This is not vim"'
-alias ls='ls --color=auto'
-alias lock="gnome-screensaver-command -l"
+alias vim=nvim
+alias ez="$EDITOR ${HOME}/.zshrc; source ${HOME}/.zshrc"
+alias cwp="feh --randomize --bg-scale ${HOME}/Wallpapers/* &>/dev/null"
+alias ls='ls --color=always'
+
+# Power commands
+alias suspend="systemctl suspend"
+alias lock="dm-tool lock"
+alias shutdown="sudo shutdown now"
 
 ## Tmux aliases
 alias tma="tmux attach -t"
@@ -59,9 +55,11 @@ alias gcar='git add --all && git commit --amend --reuse-message HEAD'
 alias gdh='git diff HEAD~1'
 
 # Exports
+export KEYTIMEOUT=1
 export VISUAL=nvim
 export EDITOR=nvim
 export GOPATH="$HOME/go"
+export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 export PATH="$HOME/bin:$HOME/.cargo/bin:$PATH"
 export KEYTIMEOUT=1
 export DOCKER_HOST='unix:///var/run/docker.sock'
@@ -85,18 +83,3 @@ bindkey '^p' autosuggest-clear
 
 setopt hist_ignore_dups
 setopt autopushd
-
-# Lazy load nvm and other node related tools
-declare -a NODE_GLOBALS=(`find ~/.nvm/versions/node -maxdepth 3 -type l -wholename '*/bin/*' | xargs -n1 basename | sort | uniq`)
-
-NODE_GLOBALS+=("node")
-NODE_GLOBALS+=("nvm")
-
-load_nvm () {
-    export NVM_DIR=~/.nvm
-    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-}
-
-for cmd in "${NODE_GLOBALS[@]}"; do
-    eval "${cmd}(){ unset -f ${NODE_GLOBALS}; load_nvm; ${cmd} \$@ }"
-done
